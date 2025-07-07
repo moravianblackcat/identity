@@ -1,0 +1,30 @@
+name: CI Workflow
+on:
+  push:
+    branches: ['main']
+    paths:
+      - '.github/workflows/**'
+      - 'src/main/**'
+      - 'build.gradle'
+  pull_request:
+    branches: ['main']
+    paths:
+      - '.github/workflows/**'
+      - 'src/main/**'
+      - 'build.gradle'
+  workflow_dispatch:
+
+jobs:
+  call-ci:
+    uses: moravianblackcat/cicd/.github/workflows/ci.yml@main
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    with:
+      REGISTRY: ghcr.io
+      IMAGE_NAME: ${{ github.repository }}
+      SLEEP_SECONDS_FOR_SERVICES: 0
+    secrets:
+      ENCRYPTION_PASSWORD: ${{ secrets.ENCRYPTION_PASSWORD }}
