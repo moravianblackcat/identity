@@ -12,6 +12,19 @@ services:
     ports:
       - "3307:3306"
 
+  adminer:
+    image: adminer
+    profiles:
+      - local
+    container_name: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - identity-db
+    environment:
+      ADMINER_DEFAULT_SERVER: identity-db:3307
+
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
     container_name: zookeeper
@@ -67,16 +80,3 @@ services:
                 bootstrap.servers: "kafka:9092"
         schema-registry:
           url: "http://schema-registry:8085"
-
-  adminer:
-    image: adminer
-    profiles:
-      - local
-    container_name: adminer
-    restart: always
-    ports:
-      - 8080:8080
-    depends_on:
-      - identity-db
-    environment:
-      ADMINER_DEFAULT_SERVER: identity-db:3307

@@ -31,7 +31,7 @@ public class FootballTeam {
     @Column(name = "stadium", nullable = false)
     private String stadium;
 
-    @Column(name = "city", nullable = false)
+    @Column(name = "city")
     private String city;
 
 }

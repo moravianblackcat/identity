@@ -75,7 +75,7 @@ databaseChangeLog:
                   name: city
                   type: VARCHAR(255)
                   constraints:
-                    nullable: false
+                    nullable: true
         - createTable:
             tableName: football_profile
             columns:
